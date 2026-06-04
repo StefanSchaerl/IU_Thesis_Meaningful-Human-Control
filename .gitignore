@@ -1,0 +1,31 @@
+# Virtuelle Python-Umgebung
+.venv/
+venv/
+env/
+ENV/
+
+# Python-Cache
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs und generierte Daten (Inhalt von /data ignorieren, außer .gitkeep)
+/data/*
+!/data/.gitkeep
+
+# Environment-Variablen / Secrets
+.env
+.env.local
+
+# IDE und Editor-spezifische Dateien
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp

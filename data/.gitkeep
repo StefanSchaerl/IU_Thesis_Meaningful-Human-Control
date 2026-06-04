@@ -1,0 +1,2 @@
+# Verhindert, dass Git dieses Verzeichnis ignoriert, da es leer ist.
+# Logdaten selbst werden über die .gitignore ausgeschlossen.
