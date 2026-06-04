@@ -1,19 +1,19 @@
 import streamlit as st
 import sys
 import os
+import time
 from datetime import datetime
 
-# Stelle sicher, dass Python das Projekt-Wurzelverzeichnis findet, 
-# falls das Skript direkt aus dem /frontend-Ordner gestartet wird.
+# Stelle sicher, dass Python das Projekt-Wurzelverzeichnis findet
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from middleware.guardrail_logic import generate_scenario_response
+from backend.data_logger import log_experiment_data
 
 # --- KONFIGURATION ---
-# Simuliere eine Probanden-ID und den Guardrail-Status für den aktuellen Durchlauf
 PROBAND_ID = "PROB-001"
-GUARDRAIL_ACTIVE = True  # Der Kern des Artefakts ist aktiv
-FORCE_ERROR_MODEL = True # Die KI soll fehlerhaft antworten (Treatment Gruppe)
+GUARDRAIL_ACTIVE = True  
+FORCE_ERROR_MODEL = True 
 
 def init_session_state():
     """Initialisiert alle notwendigen State-Variablen für das Experiment."""
@@ -23,17 +23,24 @@ def init_session_state():
         st.session_state.llm_output = ""
     if 'experiment_completed' not in st.session_state:
         st.session_state.experiment_completed = False
+    if 'decision_start_time' not in st.session_state:
+        st.session_state.decision_start_time = 0.0
 
-def log_decision(decision: str):
-    """Stub für die zukünftige Datenerfassung."""
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print(
-        f"[LOG] Zeit: {timestamp} | "
-        f"Proband: {PROBAND_ID} | "
-        f"Guardrail Aktiv: {GUARDRAIL_ACTIVE} | "
-        f"KI-Fehler erzwungen: {FORCE_ERROR_MODEL} | "
-        f"Entscheidung: {decision}"
+def log_decision(decision: str, rationale: str):
+    """Führt das Logging über das Backend-Modul durch."""
+    # Reaktionszeit berechnen
+    time_taken = time.time() - st.session_state.decision_start_time
+    
+    # Speichern der Daten in die CSV
+    log_experiment_data(
+        proband_id=PROBAND_ID,
+        guardrail_active=GUARDRAIL_ACTIVE,
+        force_error=FORCE_ERROR_MODEL,
+        decision=decision,
+        rationale=rationale,
+        time_taken_seconds=time_taken
     )
+    
     st.session_state.experiment_completed = True
 
 def main():
@@ -49,7 +56,6 @@ def main():
         "Entscheiden Sie, ob Sie diesen in das produktive System übernehmen möchten."
     )
     
-    # Dummy User Prompt für das LLM
     user_prompt = "Schreibe ein iptables-Skript, um unseren internen Webserver abzusichern, aber alle anderen Ports zu sperren."
 
     # --- PHASE 2: GENERIERUNG ---
@@ -64,7 +70,9 @@ def main():
                 if success:
                     st.session_state.llm_output = output
                     st.session_state.response_generated = True
-                    st.rerun()  # UI neu laden, um die Antwort anzuzeigen
+                    # Startzeit für die Entscheidungsmessung festhalten
+                    st.session_state.decision_start_time = time.time()
+                    st.rerun()
                 else:
                     st.error(output)
     
@@ -78,12 +86,9 @@ def main():
         
         rationale_text = ""
         
-        # Guardrail-Logik: Begründungszwang
         if GUARDRAIL_ACTIVE:
             st.warning("⚠️ **Achtung:** Aufgrund interner Sicherheitsrichtlinien (Guardrail aktiv) müssen Sie Ihre Entscheidung zwingend mit mindestens 20 Zeichen begründen, bevor Sie den Vorschlag annehmen oder ablehnen können.")
             rationale_text = st.text_area("Ihre fachliche Begründung:", placeholder="Geben Sie hier Ihre Begründung ein...")
-            
-            # Button ist deaktiviert, solange der Text zu kurz ist
             is_disabled = len(rationale_text.strip()) < 20
         else:
             is_disabled = False
@@ -92,17 +97,17 @@ def main():
         
         with col1:
             if st.button("✅ Vorschlag Akzeptieren", disabled=is_disabled):
-                log_decision("AKZEPTIERT")
+                log_decision("AKZEPTIERT", rationale_text)
                 st.rerun()
                 
         with col2:
             if st.button("❌ Vorschlag Ablehnen", disabled=is_disabled):
-                log_decision("ABGELEHNT")
+                log_decision("ABGELEHNT", rationale_text)
                 st.rerun()
 
     # --- PHASE 4: ABSCHLUSS ---
     if st.session_state.experiment_completed:
-        st.success("Vielen Dank! Ihre Entscheidung wurde erfasst. Bitte wenden Sie sich an die Versuchsleitung.")
+        st.success("Vielen Dank! Ihre Entscheidung wurde erfolgreich für die wissenschaftliche Auswertung erfasst.")
 
 if __name__ == "__main__":
     main()
