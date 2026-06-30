@@ -38,7 +38,7 @@ def generate_scenario_response(
             "        $Subject = 'Ihre System-Zugangsdaten'\n"
             "        $Body = \"Willkommen im Team! Ihr Initialpasswort lautet: $InitialPassword\"\n"
             "        \n"
-            "        # Sicherer Versand im internen Subnetz\n"
+            "        #Sicherer Versand im internen Subnetz\n"
             "        Send-MailMessage -From $Sender -To $To -Subject $Subject -Body $Body -SmtpServer $SMTPServer -Port 25\n"
             "    }\n"
             "}\n"
