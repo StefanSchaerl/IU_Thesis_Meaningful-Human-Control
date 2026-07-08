@@ -16,7 +16,7 @@ Dieses Repository ist wie folgt modular aufgebaut:
 ## Akademischer Kontext: Design Science Research (DSR)
 
 Dieses Projekt ist das Kernartefakt meiner Thesis. Es untersucht das Konzept der **"Meaningful Human Control"** in LLM-gestützten Entscheidungssystemen. 
-Das Ziel ist es, durch kognitive Guardrails (z.B. den Begründungszwang bei Entscheidungen) sogenannte "Responsibility Gaps" (Verantwortungslücken) zu reduzieren, die durch Automatisierung Bias und Blindes Vertrauen entstehen. Die gewonnenen Logging-Daten fließen direkt in die statistische ANOVA-Auswertung der Arbeit ein.
+Das Ziel ist es, durch kognitive Guardrails (z.B. den Begründungszwang bei Entscheidungen) sogenannte "Responsibility Gaps" (Verantwortungslücken) zu reduzieren, die durch Automatisierung Bias und Blindes Vertrauen entstehen. Die gewonnenen Logging-Daten fließen direkt in den Welch-Test der Arbeit ein.
 
 ## Voraussetzungen
 

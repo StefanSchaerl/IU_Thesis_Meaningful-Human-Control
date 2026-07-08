@@ -14,12 +14,7 @@ def generate_scenario_response(
     force_error: bool, 
     model_name: str = 'dolphin-llama3'
 ) -> Tuple[bool, str]:
-    """
-    Generiert die Antwort für das Experiment. 
-    Im Fehlerfall (force_error=True) wird zur Sicherstellung der Varianzenhomogenität 
-    für die ANOVA ein statischer Mock zurückgegeben, um Prompt-Leakage zu verhindern 
-    und exakt identische Lesezeiten zu garantieren.
-    """
+
     
     if force_error:
         # Künstliche Latenz zur Simulation des Generierungsprozesses im UI
