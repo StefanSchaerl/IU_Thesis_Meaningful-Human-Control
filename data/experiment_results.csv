@@ -1,0 +1,27 @@
+Timestamp;Proband_ID;Guardrail_Active;Force_Error;Decision;Time_Taken_Seconds;Rationale
+2026-06-30 08:38:35;PROB-001A;True;True;ABGELEHNT;63.8;Port 25 ist SMTP also unsicher. Daher würde ich es ablehnen
+2026-06-30 08:40:46;PROB-002A;True;True;AKZEPTIERT;22.08;Die KI wirds schon wissen
+2026-06-30 08:43:01;PROB-003A;True;True;ABGELEHNT;57.39;Initialpasswort scheint mir zu einfach
+2026-06-30 08:45:03;PROB-004A;True;True;ABGELEHNT;63.73;Wie soll der neue Mitarbeiter denn die Mail mit dem neuen Passwort überhaupt lesen?
+2026-06-30 08:55:11;PROB-005A;True;True;ABGELEHNT;40.05;"""generisch"" .. ein passwort sollte schon zufällig generiert werden. Übertragung ist unsicher."
+2026-06-30 08:56:21;PROB-006A;True;True;AKZEPTIERT;49.64;Sehr schlicht aber bleibt wohl firmenintern
+2026-06-30 08:58:19;PROB-007A;True;True;ABGELEHNT;71.91;ich kann kein powershell, sieht aber unsicher aus mit dem simplen passwort
+2026-06-30 08:59:53;PROB-008A;True;True;ABGELEHNT;54.39;Passwortvergabe über SNTP, nein Danke
+2026-06-30 09:09:53;PROB-009A;True;True;AKZEPTIERT;46.37;besser als bei uns mit ausgedruckten zetteln
+2026-06-30 09:11:45;PROB-010A;True;True;ABGELEHNT;73.35;start123! sollte random generiert werden. jeder hat das gleiche passwort?
+2026-06-30 09:13:44;PROB-011A;True;True;ABGELEHNT;68.63;"""Best-Practice"" sollte das aber nicht sein? Passwort unsicher und für alle gleich?"
+2026-06-30 09:15:39;PROB-012A;True;True;ABGELEHNT;81.73;würde das Script erst in Testumgebung ausführen. Scheint funktional, sollte aber sicherer gemacht werden. z.B. verschlüsselte Übertragung.
+2026-06-30 09:18:20;PROB-013A;True;True;ABGELEHNT;76.98;"als Admin würde ich das Script nicht einfach im Livesystem ausführen. ""behördlich"" mit ""strengen Sicherheitsrichtlinien"" klingt wie das Gegenteil vom Scriptinhalt."
+2026-06-30 09:18:37;PROB-001B;False;True;AKZEPTIERT;4.13;
+2026-06-30 09:19:11;PROB-002B;False;True;ABGELEHNT;22.23;
+2026-06-30 09:19:31;PROB-003B;False;True;AKZEPTIERT;10.39;
+2026-06-30 09:19:54;PROB-004B;False;True;AKZEPTIERT;14.42;
+2026-06-30 09:24:41;PROB-005B;False;True;AKZEPTIERT;3.97;
+2026-06-30 09:27:18;PROB-006B;False;True;ABGELEHNT;15.5;
+2026-06-30 09:29:56;PROB-007B;False;True;ABGELEHNT;47.14;
+2026-06-30 09:33:19;PROB-008B;False;True;AKZEPTIERT;9.24;
+2026-06-30 09:34:14;PROB-009B;False;True;AKZEPTIERT;5.27;
+2026-06-30 09:37:31;PROB-010B;False;True;AKZEPTIERT;5.99;
+2026-06-30 09:38:27;PROB-011B;False;True;ABGELEHNT;39.17;
+2026-06-30 09:38:51;PROB-012B;False;True;AKZEPTIERT;5.69;
+2026-06-30 09:39:15;PROB-013B;False;True;ABGELEHNT;10.68;
